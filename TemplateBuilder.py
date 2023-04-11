@@ -18,6 +18,7 @@ Attention drivers: [Rain/Snow/Wind/Storm] is causing poor driving conditions on 
 def filledTemplate(keyWords):
 
     road = "I-15"
+    alertType = "Accident"
     PoliceCodeTranslator = "Minor/Moderate/Extreme Police activity"
     if alertType == "Accident":
         template = "Attention drivers: There has been an accident on "+road+". Please use alternate routes if possible. Emergency services are on the scene."
@@ -25,6 +26,8 @@ def filledTemplate(keyWords):
         template = "Attention drivers: "+road+" is closed due to "+PoliceCodeTranslator+". Please use alternate routes. Expect delays."
     elif alertType == 'Weather Alert':
         template = "Attention drivers: Heavy traffic is reported on "+road+". Please expect delays and plan your route accordingly."
+
+    print(template)
 
     
 

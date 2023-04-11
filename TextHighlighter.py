@@ -1,9 +1,6 @@
 #import GUI
 
 def highlightedKeywords(analyzedText, keyWords):
-    #print(analyzedText)
-    #print(keyWords)
-
     start = '\033[1;32m'
     end = '\033[1;m'
     index = 0 #Index
@@ -16,6 +13,6 @@ def highlightedKeywords(analyzedText, keyWords):
 
     newString = " ".join(analyzedText)
 
-    print(newString)
+    print(newString) #Place holder for a function to call the GUI function to paste this string
 
 

@@ -1,13 +1,12 @@
 import TextHighlighter
+
 import nltk
 from nltk.corpus import stopwords
 
+stop_words = set(stopwords.words('english'))
 
 def rawText(file):
 
-    stop_words = set(stopwords.words('english'))
-
-    #file = "Dispatch, this is Officer Brown. I have a suspect in custody at the corner of 5th Ave. and Main St."
     tokens = nltk.word_tokenize(file) #Tokenizes the setence
 
     filtered_words = []
@@ -16,8 +15,7 @@ def rawText(file):
         if w not in stop_words:
             filtered_words.append(w)
 
-    tag = nltk.pos_tag(filtered_words) #Tags the non-stop words
-
+    #tag = nltk.pos_tag(filtered_words) #Tags the non-stop words
     TextHighlighter.highlightedKeywords(tokens, filtered_words)
 '''
 def providedKeywordContext(keyWords):
@@ -28,4 +26,4 @@ def providedKeywordContext(keyWords):
 '''
 
 
-rawText("Dispatch, this is Officer Brown. I have a suspect in custody at the corner of 5th Ave. and Main St.")
+rawText("Dispatch, this is Officer Brown. I have a suspect in custody at the corner of 5th Avenue and Main Street.")
