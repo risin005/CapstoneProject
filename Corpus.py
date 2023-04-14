@@ -20,8 +20,14 @@ def corpusMatch(keyWord):
 
    #This will add to the dictionary and as thus will need to add to the JSON file
 def addCorpus(word,type):
-
-    return
+    #Load in an instance of the current corpus from the json into a dictionary
+    with open('corpus.json','r') as corpus:
+        corpus_dict = json.load(corpus)
+    #Update the dictionary with the new entry
+    corpus_dict[word] = type
+    #Write it back to the json
+    with open("corpus.json", "w") as file:
+        json.dump(corpus_dict, file)
 
 def oneTimeStartUp(): #This is just a script to initially fill our Corpus of possible street associations.
     file = open("startingCorpus.txt", "r")
@@ -48,4 +54,3 @@ def oneTimeStartUp(): #This is just a script to initially fill our Corpus of pos
 
     print(corpus)
 
-corpusMatch("")
