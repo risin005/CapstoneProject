@@ -2,9 +2,10 @@ import TextAnalyzer
 import TemplateBuilder
 import json
 import nltk
+import KeywordFinder
 
 def corpusMatch(keyWord):
-    keyWord= ['Dispatch', ',', 'Officer', 'Brown', '.', 'I', 'suspect', 'custody', 'corner', '5th', 'avenue', 'main', 'street', '.']
+    keyWord= ['Dispatch', ',', 'Officer', 'Brown', '.', 'I', 'suspect', 'custody', 'corner', '5th', 'avenue', 'main', 'street', '.', '15 North','Closed']
     with open('corpus.json','r') as corpus:
         corpus_dict = json.load(corpus)
         wordsWithContext = []
@@ -12,11 +13,15 @@ def corpusMatch(keyWord):
     #for word in keyWord:
     for i in range(len(keyWord)):
         if keyWord[i] in corpus_dict:
-            element = (keyWord[i],corpus_dict.get(keyWord[i]))
+            if corpus_dict.get(keyWord[i]) == "streets" and i > 0: #If a street name is found, concatinate both parts
+                streetName = keyWord[i-1] + " " + keyWord[i]
+                element = (streetName, corpus_dict.get(keyWord[i]))
+            else: #if just a keyword, then find the given context in the corpus
+                element = (keyWord[i], corpus_dict.get(keyWord[i]))
             wordsWithContext.append(element)
 
     print(wordsWithContext)
-    TemplateBuilder.filledTemplate(wordsWithContext)
+    KeywordFinder.providedKeywordContext(wordsWithContext)
 
    #This will add to the dictionary and as thus will need to add to the JSON file
 def addCorpus(word,type):
@@ -53,4 +58,7 @@ def oneTimeStartUp(): #This is just a script to initially fill our Corpus of pos
         json.dump(corpus, file)
 
     print(corpus)
+
+
+corpusMatch("")
 
