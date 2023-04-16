@@ -15,7 +15,7 @@ Attention drivers: [Rain/Snow/Wind/Storm] is causing poor driving conditions on 
 '''
 
 
-def filledTemplate(keyWords):
+def filledTemplate(keyWords, rawText):
 
     road = "I-15"
     alertType = "Accident"
@@ -29,7 +29,7 @@ def filledTemplate(keyWords):
         elif alertType == 'Weather Alert':
             template = "Attention drivers: Heavy traffic is reported on "+road+". Please expect delays and plan your route accordingly."
 
-    print(template)
+    #print(keyWords)
 
     
 

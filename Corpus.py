@@ -1,15 +1,16 @@
-import TextAnalyzer
+
 import TemplateBuilder
 import json
 import nltk
-import KeywordFinder
+import TextHighlighter
 
-def corpusMatch(keyWord):
-    keyWord= ['Dispatch', ',', 'Officer', 'Brown', '.', 'I', 'suspect', 'custody', 'corner', '5th', 'avenue', 'main', 'street', '.', '15 North','Closed']
+
+def corpusMatch(keyWord, rawText):
+
     with open('corpus.json','r') as corpus:
         corpus_dict = json.load(corpus)
         wordsWithContext = []
-
+        keywords = []
     #for word in keyWord:
     for i in range(len(keyWord)):
         if keyWord[i] in corpus_dict:
@@ -19,9 +20,19 @@ def corpusMatch(keyWord):
             else: #if just a keyword, then find the given context in the corpus
                 element = (keyWord[i], corpus_dict.get(keyWord[i]))
             wordsWithContext.append(element)
+            keywords.append(keyWord[i])
+    #newString = " ".join(analyzedText)
+    TemplateBuilder.filledTemplate(wordsWithContext, rawText)
+    TextHighlighter.highlightedKeywords(keywords, rawText)
+'''
+    tags = nltk.pos_tag(keyWord)
+    for tag in tags:
+        if tag[1] == 'NNP' or tag[1] == 'CD': #Gonna restrict the criteria for parsing even move this to corpus to check dictionary as a way to restrict
+            wordsWithContext.append((tag[0], "keyword"))
+            keywords.append(tag[0])
+'''
 
-    print(wordsWithContext)
-    KeywordFinder.providedKeywordContext(wordsWithContext)
+
 
    #This will add to the dictionary and as thus will need to add to the JSON file
 def addCorpus(word,type):
@@ -58,7 +69,4 @@ def oneTimeStartUp(): #This is just a script to initially fill our Corpus of pos
         json.dump(corpus, file)
 
     print(corpus)
-
-
-corpusMatch("")
 
